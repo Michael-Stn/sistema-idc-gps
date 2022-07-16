@@ -10,6 +10,15 @@ services:
             - "80:80"
         links: 
             - api
+    
+    hivemq:
+        container_name: broker
+        build: "./hivemq"
+        restart: always
+        #ports: 
+        #    - "8080:8080"
+        links: 
+            - api
 
     api:
         container_name: api
@@ -17,23 +26,34 @@ services:
         restart: always
         volumes: 
             - "./code:/var/www/html"
+        #ports:
+        #   - "3000:3000"
         depends_on: 
             - mongo
         environment:
-            - PORT=8080
+            - PORT=3000
+            - MONGO_USER=msavila
+            - MONGO_PASS=msavila
+            - MONGO_HOST=mongo:27017
+            - MONGO_DBAS=admin
+            - MQ_USER=msavila-api
+            - MQ_PASS=msavila-pass 
+            - MQ_HOST=hivemq:1883
 
     mongo:
+        container_name: mongo
         image: mongo
         restart: always
         volumes: 
             - "db-data:/data/db"
-        ports:
-            - "27017:27017"
+        #ports:
+        #   - "27017:27017"
         environment:
             MONGO_INITDB_ROOT_USERNAME: msavila
             MONGO_INITDB_ROOT_PASSWORD: msavila
 
     mongo-express:
+        container_name: mongo-admin
         image: mongo-express
         restart: always
         #ports:

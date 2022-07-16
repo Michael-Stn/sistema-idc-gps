@@ -1,9 +1,12 @@
 var createError = require('http-errors');
-const mongoose = require('mongoose');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+// servicios
+require('./services/mongo');
+require('./services/mqtt');
 
 var indexRouter = require('./routes/index');
 var petsRouter = require('./routes/pets');
@@ -12,16 +15,6 @@ var tracksRouter = require('./routes/tracks');
 var configsRouter = require('./routes/configs');
 
 var app = express();
-
-mongoose.connect('mongodb://msavila:msavila@mongo:27017/admin', {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
-const connection = mongoose.connection;
-
-connection.once("open", function() {
-  console.log("MongoDB database connection established successfully");
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

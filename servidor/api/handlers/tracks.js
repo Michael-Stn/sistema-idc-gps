@@ -50,8 +50,19 @@ const createTrack = async (req, res) => {
   });
 };
 
+const createTrackMQ = async (data) => {
+  tracks.insertMany([data], (err, result) => {
+    if (err) {
+      console.log('Error Create Tracks MQ', err);
+    } else {
+      console.log('Tracks MQ', result);
+    }
+  });
+};
+
 module.exports = {
   get: getTracks,
   getByPet: getTracksByCodePet,
   create: createTrack,
+  createMQ: createTrackMQ,
 };
