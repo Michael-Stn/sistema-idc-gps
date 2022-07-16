@@ -13,7 +13,7 @@ var configsRouter = require('./routes/configs');
 
 var app = express();
 
-mongoose.connect('mongodb://msavila:msavila@http://134.122.8.119:27017/admin', {
+mongoose.connect('mongodb://msavila:msavila@134.122.8.119:27017/admin', {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
