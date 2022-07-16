@@ -8,27 +8,27 @@ services:
         restart: always
         ports: 
             - "80:80"
-        #links: 
-        #    - api
+        links: 
+            - api
 
-    #api:
-        #container_name: api
-        #build: "./api"
-        #restart: always
-        #volumes: 
-        #    - "./code:/var/www/html"
-        #depends_on: 
-        #    - mongo
-        #environment:
-        #    - PORT=8080
+    api:
+        container_name: api
+        build: "./api"
+        restart: always
+        volumes: 
+            - "./code:/var/www/html"
+        depends_on: 
+            - mongo
+        environment:
+            - PORT=8080
 
     mongo:
         image: mongo
         restart: always
         volumes: 
             - "db-data:/data/db"
-        ports:
-            - "27017:27017"
+        #ports:
+        #    - "27017:27017"
         environment:
             MONGO_INITDB_ROOT_USERNAME: msavila
             MONGO_INITDB_ROOT_PASSWORD: msavila
