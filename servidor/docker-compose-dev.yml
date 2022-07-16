@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+    proxy_nginx:
+        container_name: proxy
+        build: "./nginx"
+        restart: always
+        ports: 
+            - "80:80"
+        #links: 
+        #    - api
+
+    #api:
+        #container_name: api
+        #build: "./api"
+        #restart: always
+        #volumes: 
+        #    - "./code:/var/www/html"
+        #depends_on: 
+        #    - mongo
+        #environment:
+        #    - PORT=8080
+
+    mongo:
+        image: mongo
+        restart: always
+        volumes: 
+            - "db-data:/data/db"
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: msavila
+            MONGO_INITDB_ROOT_PASSWORD: msavila
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        #ports:
+            #- 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: msavila
+            ME_CONFIG_MONGODB_ADMINPASSWORD: msavila
+            ME_CONFIG_MONGODB_URL: mongodb://msavila:msavila@mongo:27017/
+
+volumes:
+        db-data:
