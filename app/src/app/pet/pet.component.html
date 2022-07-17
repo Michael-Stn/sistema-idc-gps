@@ -1,0 +1,88 @@
+<div class="page-container">
+  <app-header [title]="titlePage"></app-header>
+
+  <div class="container" id="content-wrap">
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="container py-2">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <form>
+            <div class="row align-items-center justify-content-center pb-2">
+              <div class="col-3 text-start">
+                <label for="inputName" class="col-form-label">{{
+                  nameLabel
+                }}</label>
+              </div>
+              <div class="col-7">
+                <input
+                  type="text"
+                  id="inputName"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+
+            <div class="row align-items-center justify-content-center py-2">
+              <div class="col-3 text-start">
+                <label for="inputCode" class="col-form-label">{{
+                  codeLabel
+                }}</label>
+              </div>
+              <div class="col-7">
+                <input
+                  type="text"
+                  id="inputCode"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+
+            <div class="row align-items-center justify-content-center py-3">
+              <div class="col-10">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="checkboxTrack"
+                  />
+                  <label class="form-check-label" for="checkboxTrack">
+                    {{ chbxLabel }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="row align-items-center justify-content-center pt-2 pb-3"
+            >
+              <div class="col-10">
+                <input type="color" id="inputColor" />
+              </div>
+            </div>
+
+            <div class="row align-items-center text-center">
+              <div class="col-12">
+                <app-button
+                  [text]="btnSaveLabel"
+                  btnClass="btn btn-primary btn-sm"
+                  link="/"
+                >
+                </app-button>
+                &nbsp;
+                <app-button
+                  [text]="btnCancelLabel"
+                  btnClass="btn btn-secondary btn-sm"
+                  link="/"
+                >
+                </app-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

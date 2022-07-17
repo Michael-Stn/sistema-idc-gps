@@ -1,0 +1,17 @@
+<div class="page-container">
+  <app-header [title]="titlePage"></app-header>
+
+  <div class="container" id="content-wrap">
+    <app-breadcrumb></app-breadcrumb>
+
+    <app-notification
+      *ngFor="let alert of alerts"
+      [title]="alert.title"
+      [datetime]="alert.date"
+      [petname]="alert.infoPet ? alert.infoPet.name : ''"
+      [distance]="alert.distance.toString()"
+    ></app-notification>
+  </div>
+
+  <app-footer></app-footer>
+</div>

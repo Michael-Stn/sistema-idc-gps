@@ -1,0 +1,18 @@
+<div class="page-container">
+  <app-header [title]="titlePage"></app-header>
+
+  <div class="container" id="content-wrap">
+    <app-options></app-options>
+
+    <app-item-pet
+      *ngFor="let pet of pets; let i = index"
+      [code]="pet.code"
+      [index]="i + 1"
+      [namePet]="pet.name"
+      [doTrack]="pet.doTrack"
+      [color]="pet.color"
+    ></app-item-pet>
+  </div>
+
+  <app-footer></app-footer>
+</div>

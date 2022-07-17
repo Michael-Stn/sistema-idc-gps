@@ -1,0 +1,55 @@
+<div class="container py-2">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <p class="container-title">{{ petIndexLabel }}</p>
+      <div class="container item-container">
+        <div class="row">
+          <div class="col-4">
+            <i
+              class="coloxbox fa fa-square fa-5x"
+              [style.color]="color"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="col-5 container-list">
+            <div class="row pet-name">{{ namePet }}</div>
+            <div class="row">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  disabled
+                  [checked]="doTrack"
+                />
+                <label class="form-check-label">{{ chbxLabel }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <app-button
+                [text]="btnEditLabel"
+                btnClass="fa"
+                iconClass="fa fa-pencil-square-o"
+                [link]="'pet/' + code"
+              >
+              </app-button>
+            </div>
+          </div>
+          <div class="col-3 text-end">
+            <i
+              *ngIf="doTrack"
+              class="coloxbox fa fa-map-marker fa-5x pointer active-pointer"
+              title="Localizar mascota"
+              [routerLink]="'track/' + code"
+              aria-hidden="true"
+            ></i>
+            <i
+              *ngIf="!doTrack"
+              class="coloxbox fa fa-map-marker fa-5x"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
