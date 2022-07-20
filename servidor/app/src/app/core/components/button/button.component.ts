@@ -10,6 +10,7 @@ export class ButtonComponent implements OnInit {
   @Input() btnClass!: string;
   @Input() iconClass!: string;
   @Input() link!: string;
+  @Input() type = 'button'
 
   constructor() {}
 

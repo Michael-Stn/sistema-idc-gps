@@ -20,4 +20,8 @@ export class PetsService {
       environment.pets_base_url + `/${code}`
     );
   }
+
+  public create(data: any): Observable<ResponseAPI<Pets[]>> {
+    return this.http.post<ResponseAPI<Pets[]>>(environment.pets_base_url, data);
+  }
 }

@@ -17,6 +17,7 @@ import { OptionsComponent } from './home/options/options.component';
 import { ItemPetComponent } from './home/item-pet/item-pet.component';
 import { NotificationComponent } from './alerts/notification/notification.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,12 @@ import { HttpClientModule } from '@angular/common/http';
     ItemPetComponent,
     NotificationComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

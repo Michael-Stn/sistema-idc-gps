@@ -9,22 +9,32 @@ import { TrackComponent } from './track/track.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Pet Tracker',
     component: HomeComponent,
   },
   {
     path: 'settings',
+    title: 'Configuraciones',
     component: SettingsComponent,
   },
   {
     path: 'alerts',
+    title: 'Notificaciones',
     component: AlertsComponent,
   },
   {
     path: 'pet',
+    title: 'Agregar Mascota',
+    component: PetComponent,
+  },
+  {
+    path: 'pet/:code',
+    title: 'Editar Mascota',
     component: PetComponent,
   },
   {
     path: 'track/:code',
+    title: 'Localización',
     component: TrackComponent,
   },
 ];
