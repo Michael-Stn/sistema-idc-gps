@@ -15,8 +15,9 @@ services:
         container_name: broker
         build: "./hivemq"
         restart: always
-        #ports: 
+        ports: 
         #    - "8080:8080"
+            - "1883:1883"
         links: 
             - api
 
@@ -53,8 +54,8 @@ services:
         restart: always
         volumes: 
             - "db-data:/data/db"
-        #ports:
-        #   - "27017:27017"
+        ports:
+           - "27017:27017"
         environment:
             MONGO_INITDB_ROOT_USERNAME: msavila
             MONGO_INITDB_ROOT_PASSWORD: msavila
@@ -64,7 +65,7 @@ services:
         image: mongo-express
         restart: always
         ports:
-            - 8081:8081
+            - 8080:8081
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: msavila
             ME_CONFIG_MONGODB_ADMINPASSWORD: msavila
