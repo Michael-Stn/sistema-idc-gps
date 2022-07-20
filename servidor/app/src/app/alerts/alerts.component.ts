@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Alerts } from '../core/models/alerts.model';
 import { AlertsService } from '../core/services/alerts/alerts.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-alerts',
@@ -19,6 +19,9 @@ export class AlertsComponent implements OnInit {
   ngOnInit(): void {
     this.alertsService.get().subscribe((response) => {
       this.alerts = response.data;
+      this.alerts.map((alert) => {
+        alert.date = moment(alert.date).format('DD/MM/YYYY hh:mm:ss A');
+      });
     });
   }
 }

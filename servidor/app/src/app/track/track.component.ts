@@ -33,7 +33,7 @@ export class TrackComponent implements OnInit {
   ) {
     this.titlePage = 'Localizar mascota';
     this.petLabel = 'Mascota: ';
-    this.distanceLabel = 'Distancia: PENDIENTE';
+    this.distanceLabel = 'Distancia: ';
     this.code = this.route.snapshot.paramMap.get('code') ?? '';
   }
 
@@ -58,6 +58,7 @@ export class TrackComponent implements OnInit {
           lat: track.lat,
           lng: track.lon,
         };
+        this.distanceLabel += String(track.distance).concat(' metros')
       }
     });
   }

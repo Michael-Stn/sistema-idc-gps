@@ -2,7 +2,15 @@ const alerts = require('../models/alerts');
 const petsHandler = require('../handlers/pets');
 
 const getAlerts = async (req, res) => {
-  alerts.find({ deleted: false }, '', async (err, result) => {
+  const { limit, order } = req.query;
+  const query = alerts.find({ deleted: false });
+  if (order) {
+    query.sort({ date: order === 'asc' ? 1 : -1 });
+  }
+  if (limit) {
+    query.limit(limit);
+  }
+  query.exec(async (err, result) => {
     if (err) {
       res.status(500).json({ error: err });
     } else {

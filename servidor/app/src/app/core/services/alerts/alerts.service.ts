@@ -12,6 +12,6 @@ export class AlertsService {
   constructor(private http: HttpClient) {}
 
   public get(): Observable<ResponseAPI<Alerts[]>> {
-    return this.http.get<ResponseAPI<Alerts[]>>(environment.alerts_base_url);
+    return this.http.get<ResponseAPI<Alerts[]>>(`${environment.alerts_base_url}?limit=10&order=desc`);
   }
 }

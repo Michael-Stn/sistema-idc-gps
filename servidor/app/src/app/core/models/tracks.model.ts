@@ -4,4 +4,5 @@ export interface Tracks {
   lat: number;
   lon: number;
   datetime: string;
+  distance: number
 }
