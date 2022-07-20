@@ -21,4 +21,11 @@ export class ConfigsService {
       data
     );
   }
+
+  public create(data: any): Observable<ResponseAPI<ResponseUpdate>> {
+    return this.http.post<ResponseAPI<ResponseUpdate>>(
+      environment.configs_base_url,
+      data
+    );
+  }
 }

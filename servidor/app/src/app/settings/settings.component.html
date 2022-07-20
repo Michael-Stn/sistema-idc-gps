@@ -56,6 +56,17 @@
                 <label for="inputCode" class="col-form-label">{{
                   locationLabel
                 }}</label>
+                <google-map
+                  width="100%"
+                  [center]="center"
+                  [zoom]="zoom"
+                  (mapClick)="addMarker($event)"
+                >
+                  <map-marker
+                    [position]="markerPosition"
+                    [options]="markerOptions"
+                  ></map-marker>
+                </google-map>
               </div>
             </div>
 

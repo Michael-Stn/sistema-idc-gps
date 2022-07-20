@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
   btnSaveLabel: string;
   btnCancelLabel: string;
   messageAlert: string;
+  initialConfig: boolean;
 
   configForm = this.formBuilder.group({
     doSync: false,
@@ -30,6 +31,12 @@ export class SettingsComponent implements OnInit {
     distanceAlert: 0,
     intervalAlert: 0,
   });
+
+  // Configuración por defecto del Maps
+  center: google.maps.LatLngLiteral = { lat: 4.661287, lng: -74.1108173 };
+  zoom = 11;
+  markerOptions: google.maps.MarkerOptions = { draggable: false };
+  markerPosition!: google.maps.LatLngLiteral;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,10 +54,12 @@ export class SettingsComponent implements OnInit {
     this.btnSaveLabel = 'Guardar';
     this.btnCancelLabel = 'Cancelar';
     this.messageAlert = '';
+    this.initialConfig = true;
   }
 
   ngOnInit(): void {
     this.configService.get().subscribe((response) => {
+      this.initialConfig = false;
       const infoConfig = response.data;
       this.configForm.setValue({
         doSync: infoConfig.doSync,
@@ -61,12 +70,36 @@ export class SettingsComponent implements OnInit {
         distanceAlert: infoConfig.distanceAlert,
         intervalAlert: infoConfig.intervalAlert,
       });
+
+      this.center = { lat: infoConfig.homeLat, lng: infoConfig.homeLon };
+      this.zoom = 18;
+      this.markerPosition = {
+        lat: infoConfig.homeLat,
+        lng: infoConfig.homeLon,
+      };
     });
   }
 
   onSubmit(): void {
-    this.configService.update(this.configForm.value).subscribe(() => {
-      this.messageAlert = 'Configuración actualizada exitosamente';
-    });
+    const formData = this.configForm.value;
+    formData.homeLat = this.markerPosition.lat;
+    formData.homeLon = this.markerPosition.lng;
+
+    if (this.initialConfig) {
+      this.configService.create(formData).subscribe(() => {
+        this.messageAlert = 'Configuración actualizada exitosamente';
+      });
+    } else {
+      this.configService.update(formData).subscribe(() => {
+        this.messageAlert = 'Configuración actualizada exitosamente';
+      });
+    }
+  }
+
+  addMarker(event: google.maps.MapMouseEvent) {
+    const latLng = event.latLng;
+    if (latLng) {
+      this.markerPosition = latLng.toJSON();
+    }
   }
 }
