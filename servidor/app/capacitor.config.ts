@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'edu.michalavila.app',
-  appName: 'app',
+  appName: 'petMonitor',
   webDir: 'dist/app',
   bundledWebRuntime: false,
   server: {
