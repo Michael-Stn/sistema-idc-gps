@@ -7,7 +7,12 @@
     <div class="container py-2">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
-          <form>
+          <app-alert color="primary" [message]="messageAlert"></app-alert>
+          <form
+            autocomplete="off"
+            [formGroup]="configForm"
+            (ngSubmit)="onSubmit()"
+          >
             <!-- Checkbox Sincronizar -->
             <div class="row align-items-center justify-content-center py-3">
               <div class="col-10">
@@ -16,6 +21,7 @@
                     class="form-check-input"
                     type="checkbox"
                     id="checkboxDoSync"
+                    formControlName="doSync"
                   />
                   <label class="form-check-label" for="checkboxDoSync">
                     {{ doSyncLabel }}
@@ -33,9 +39,10 @@
               </div>
               <div class="col-2">
                 <input
-                  type="text"
+                  type="number"
                   id="inputIntervalSync"
                   class="form-control form-control-sm"
+                  formControlName="intervalSync"
                 />
               </div>
               <div class="col-2 text-start">
@@ -60,6 +67,7 @@
                     class="form-check-input"
                     type="checkbox"
                     id="checkboxDoAlert"
+                    formControlName="doAlert"
                   />
                   <label class="form-check-label" for="checkboxDoAlert">
                     {{ doAlertLabel }}
@@ -77,9 +85,10 @@
               </div>
               <div class="col-2">
                 <input
-                  type="text"
+                  type="number"
                   id="inputDistanceAlert"
                   class="form-control form-control-sm"
+                  formControlName="distanceAlert"
                 />
               </div>
               <div class="col-2 text-start">
@@ -98,9 +107,10 @@
               </div>
               <div class="col-2">
                 <input
-                  type="text"
+                  type="number"
                   id="inputIntervalAlert"
                   class="form-control form-control-sm"
+                  formControlName="intervalAlert"
                 />
               </div>
               <div class="col-2 text-start">
@@ -112,11 +122,11 @@
 
             <!-- Botones de acción -->
             <div class="row align-items-center text-center">
-              <div class="col-12">
+              <div class="col-12 pt-3">
                 <app-button
                   [text]="btnSaveLabel"
+                  type="submit"
                   btnClass="btn btn-primary btn-sm"
-                  link="/"
                 >
                 </app-button>
                 &nbsp;

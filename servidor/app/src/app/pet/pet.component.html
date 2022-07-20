@@ -7,6 +7,7 @@
     <div class="container py-2">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
+          <app-alert color="success" [message]="messageAlert"></app-alert>
           <form
             autocomplete="off"
             [formGroup]="petForm"
@@ -81,6 +82,14 @@
                   [text]="btnCancelLabel"
                   btnClass="btn btn-secondary btn-sm"
                   link="/"
+                >
+                </app-button>
+                &nbsp;
+                <app-button
+                  *ngIf="!addingPet"
+                  (click)="onDelete()"
+                  [text]="btnDeleteLabel"
+                  btnClass="btn btn-danger btn-sm"
                 >
                 </app-button>
               </div>

@@ -1,8 +1,10 @@
 export interface Configs {
   _id: string;
-  code: number;
-  name: string;
-  doTrack: boolean;
-  color: string;
-  deleted: boolean;
+  doSync: boolean;
+  intervalSync: number;
+  homeLat: number;
+  homeLon: number;
+  doAlert: boolean;
+  distanceAlert: number;
+  intervalAlert: number;
 }

@@ -18,6 +18,7 @@ import { ItemPetComponent } from './home/item-pet/item-pet.component';
 import { NotificationComponent } from './alerts/notification/notification.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './core/components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     OptionsComponent,
     ItemPetComponent,
     NotificationComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
