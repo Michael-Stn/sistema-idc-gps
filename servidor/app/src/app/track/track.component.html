@@ -7,24 +7,32 @@
     <div class="container py-2">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
-          <form>
-            <div class="row align-items-center justify-content-center py-2">
-              <div class="col-10 text-start">
-                <label class="col-form-label">{{ petLabel }}</label>
-              </div>
+          <div class="row align-items-center justify-content-center py-2">
+            <div class="col-12 text-start">
+              <label class="col-form-label">{{ petLabel }}</label>
             </div>
-            <div *ngFor="let track of tracks">
-              <p>
-                Latitud: {{ track.lat }} - Longitud: {{ track.lon }} - Fecha:
-                {{ track.datetime }}
-              </p>
+          </div>
+          <div class="row align-items-center justify-content-center py-2">
+            <div class="col-12">
+              <google-map width="100%" [center]="center" [zoom]="zoom">
+                <map-marker
+                  [position]="markerPosition"
+                  [options]="markerOptions"
+                  icon="./assets/icons/pet_icon.png"
+                ></map-marker>
+                <map-marker
+                  [position]="markerHomePosition"
+                  [options]="markerHomeOptions"
+                  icon="./assets/icons/home_icon.png"
+                ></map-marker>
+              </google-map>
             </div>
-            <div class="row align-items-center justify-content-center py-2">
-              <div class="col-10 text-start">
-                <label class="col-form-label">{{ distanceLabel }}</label>
-              </div>
+          </div>
+          <div class="row align-items-center justify-content-center py-2">
+            <div class="col-12 text-start">
+              <label class="col-form-label">{{ distanceLabel }}</label>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

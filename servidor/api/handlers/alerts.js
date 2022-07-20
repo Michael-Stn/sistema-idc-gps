@@ -1,22 +1,5 @@
 const alerts = require('../models/alerts');
-const pets = require('../models/pets');
-
-const _getPetByCode = async (code) => {
-  const myPromise = new Promise((resolve, reject) => {
-    pets.findOne({ code, deleted: false }, '', (err, result) => {
-      if (err) {
-        reject('Error buscando mascota:' + err);
-      } else {
-        if (!result) {
-          reject('No se encontró mascota:' + code);
-        } else {
-          resolve(result);
-        }
-      }
-    });
-  });
-  return myPromise;
-};
+const petsHandler = require('../handlers/pets');
 
 const getAlerts = async (req, res) => {
   alerts.find({ deleted: false }, '', async (err, result) => {
@@ -30,7 +13,9 @@ const getAlerts = async (req, res) => {
       } else {
         for (const i in result) {
           result[i] = JSON.parse(JSON.stringify(result[i]));
-          result[i].infoPet = await _getPetByCode(result[i].codePet);
+          result[i].infoPet = await petsHandler.getByCodeData(
+            result[i].codePet
+          );
         }
         res.json({
           data: result,
@@ -53,7 +38,7 @@ const getAlertsByCode = async (req, res) => {
       } else {
         for (const i in [result]) {
           result = JSON.parse(JSON.stringify(result));
-          result.infoPet = await _getPetByCode(result.codePet);
+          result.infoPet = await petsHandler.getByCodeData(result.codePet);
         }
         res.json({
           data: result,
@@ -94,10 +79,41 @@ const deleteAlert = async (req, res) => {
   res.status(501).json({ message: 'Metodo no implementado' });
 };
 
+const getLastAlertData = async (codePet) => {
+  const promise = new Promise((resolve, reject) => {
+    alerts
+      .findOne({ codePet })
+      .sort({ date: -1 })
+      .exec((err, result) => {
+        if (err) {
+          reject('ERROR get last alert:', err);
+        } else {
+          resolve(result);
+        }
+      });
+  });
+  return promise;
+};
+
+const createAlertData = async (data) => {
+  const promise = new Promise((resolve, reject) => {
+    alerts.insertMany([data], (err, result) => {
+      if (err) {
+        reject('ERROR create alert', err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+  return promise;
+};
+
 module.exports = {
   get: getAlerts,
   getByCode: getAlertsByCode,
+  getLastData: getLastAlertData,
   create: createAlert,
+  createData: createAlertData,
   update: updateAlert,
   delete: deleteAlert,
 };

@@ -37,6 +37,23 @@ const getPetsByCode = async (req, res) => {
   });
 };
 
+const getPetByCodeData = async (code) => {
+  const myPromise = new Promise((resolve, reject) => {
+    pets.findOne({ code, deleted: false }, '', (err, result) => {
+      if (err) {
+        reject('Error buscando mascota:' + err);
+      } else {
+        if (!result) {
+          reject('No se encontró mascota:' + code);
+        } else {
+          resolve(result);
+        }
+      }
+    });
+  });
+  return myPromise;
+};
+
 const createPet = async (req, res) => {
   body = req.body;
   pets.insertMany([body], (err, result) => {
@@ -80,6 +97,7 @@ const deletePet = async (req, res) => {
 module.exports = {
   get: getPets,
   getByCode: getPetsByCode,
+  getByCodeData: getPetByCodeData,
   create: createPet,
   update: updatePet,
   delete: deletePet,

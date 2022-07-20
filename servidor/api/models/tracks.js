@@ -17,6 +17,10 @@ let tracks = new Schema(
     lon: {
       type: Number,
     },
+    distance: {
+      type: Number,
+      default: 0,
+    },
   },
   { collection: 'Tracks' }
 );

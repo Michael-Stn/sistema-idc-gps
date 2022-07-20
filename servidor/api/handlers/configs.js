@@ -55,8 +55,22 @@ const updateConfig = async (req, res) => {
   });
 };
 
+const getConfigData = async () => {
+  const promise = new Promise((resolve, reject) => {
+    configs.findOne({}, '', (err, result) => {
+      if (err) {
+        reject('Error get configs:', err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+  return promise;
+};
+
 module.exports = {
   get: getConfigs,
+  getData: getConfigData,
   create: createConfig,
   update: updateConfig,
 };

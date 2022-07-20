@@ -11,9 +11,9 @@ import { environment } from 'src/environments/environment';
 export class TracksService {
   constructor(private http: HttpClient) {}
 
-  public get(code: string): Observable<ResponseAPI<Tracks[]>> {
+  public getLast(code: string): Observable<ResponseAPI<Tracks[]>> {
     return this.http.get<ResponseAPI<Tracks[]>>(
-      environment.tracks_base_url + `/${code}`
+      `${environment.tracks_base_url}/${code}?limit=1&order=desc`
     );
   }
 }

@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
       });
 
       this.center = { lat: infoConfig.homeLat, lng: infoConfig.homeLon };
-      this.zoom = 18;
+      this.zoom = 19;
       this.markerPosition = {
         lat: infoConfig.homeLat,
         lng: infoConfig.homeLon,
