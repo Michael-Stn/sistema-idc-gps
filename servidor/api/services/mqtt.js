@@ -39,15 +39,4 @@ mqttClient.on('message', function (topic, message) {
   }
 });
 
-/* Notificar actualización
-const mqttClient = require('../services/mqtt');
-mqttClient.publish(
-  'iot/track',
-  JSON.stringify({
-    codePet: 5432234,
-    lat: 4.213213,
-    lon: -70.213431,
-  })
-);
-*/
 module.exports = mqttClient;

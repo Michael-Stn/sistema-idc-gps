@@ -20,10 +20,13 @@ const getAlerts = async (req, res) => {
         });
       } else {
         for (const i in result) {
-          result[i] = JSON.parse(JSON.stringify(result[i]));
-          result[i].infoPet = await petsHandler.getByCodeData(
-            result[i].codePet
-          );
+          try {
+            const infoPet = await petsHandler.getByCodeData(result[i].codePet);
+            result[i] = JSON.parse(JSON.stringify(result[i]));
+            result[i].infoPet = infoPet;
+          } catch (error) {
+            continue;
+          }
         }
         res.json({
           data: result,

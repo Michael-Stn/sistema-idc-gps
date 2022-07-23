@@ -126,13 +126,53 @@ const _getMeters = (lat1, lon1, lat2, lon2) => {
 };
 
 const createTrackMQ = async (data) => {
-  tracks.insertMany([data], (err, result) => {
-    if (err) {
-      console.log('Error Create Tracks MQ', err);
-    } else {
-      console.log('Tracks MQ', result);
+  try {
+    if (data.lat && data.lon) {
+      const configs = await configHandler.getData();
+      data.distance = _getMeters(
+        configs.homeLat,
+        configs.homeLon,
+        data.lat,
+        data.lon
+      );
+      if (data.distance >= configs.distanceAlert) {
+        const lastAlert = await alertsHandler.getLastData(data.codePet);
+        const diffMinutes = parseInt(
+          (new Date() - new Date(lastAlert.date ?? null)) / (1000 * 60)
+        );
+        if (!lastAlert || diffMinutes >= configs.intervalAlert) {
+          const infoPet = await petsHandler.getByCodeData(data.codePet);
+          // Realizar alertamiento
+          alertsHandler.createData({
+            code: new Date().getTime(),
+            title: 'Se ha superado el límite de distancia',
+            codePet: data.codePet,
+            distance: data.distance,
+          });
+
+          // Notificar con IFTTT
+          const axios = require('axios');
+          axios({
+            method: 'post',
+            url: 'https://maker.ifttt.com/trigger/distanceOut/with/key/cQzfBsdfVK6PdG8F7ZeRLn',
+            data: {
+              value1: infoPet.name,
+              value2: data.distance,
+            },
+          });
+        }
+      }
     }
-  });
+    tracks.insertMany([data], (err, result) => {
+      if (err) {
+        console.log('Error Create Tracks MQ', err);
+      } else {
+        console.log('Tracks MQ', result);
+      }
+    });
+  } catch (error) {
+    console.log('ERROR createTrackMQ:', error);
+  }
 };
 
 module.exports = {
