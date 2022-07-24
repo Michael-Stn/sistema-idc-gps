@@ -138,7 +138,7 @@ const createTrackMQ = async (data) => {
       if (data.distance >= configs.distanceAlert) {
         const lastAlert = await alertsHandler.getLastData(data.codePet);
         const diffMinutes = parseInt(
-          (new Date() - new Date(lastAlert.date ?? null)) / (1000 * 60)
+          (new Date() - new Date(lastAlert ? lastAlert.date : null)) / (1000 * 60)
         );
         if (!lastAlert || diffMinutes >= configs.intervalAlert) {
           const infoPet = await petsHandler.getByCodeData(data.codePet);

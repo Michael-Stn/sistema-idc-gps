@@ -9,7 +9,7 @@ export class FooterComponent implements OnInit {
   text: string;
   constructor() {
     this.text =
-      '© Michael Stiven Avila Arias - Fundación Universitaria del Área Andina 2022';
+      '© Michael Stiven Avila Arias - F.U. del Área Andina 2022';
   }
 
   ngOnInit(): void {}
