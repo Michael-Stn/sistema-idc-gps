@@ -1,6 +1,6 @@
 {
 	"appId": "edu.michalavila.app",
-	"appName": "app",
+	"appName": "petMonitor",
 	"webDir": "dist/app",
 	"bundledWebRuntime": false,
 	"server": {
